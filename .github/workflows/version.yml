@@ -21,7 +21,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - run: npm version ${{ github.event.inputs.type }}
-      - run: git push https://github-actions[bot]:${GH_PAT}@github.com/${{ github.repository }}.git --all --follow-tags
+      - run: git push https://friederbluemle:${GH_PAT}@github.com/${{ github.repository }}.git --all --follow-tags
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
       - run: echo "VERSION=$(npm -s run env echo '$npm_package_version')" >> $GITHUB_ENV
