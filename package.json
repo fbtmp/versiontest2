@@ -1,5 +1,5 @@
 {
-  "name": "versiontest2",
+  "name": "@fbtmp/versiontest2",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/fbtmp/versiontest2.git",
