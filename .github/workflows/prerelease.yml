@@ -18,6 +18,7 @@ on:
         default: 'alpha'
         type: choice
         options:
+          - ''
           - alpha
           - beta
           - rc
