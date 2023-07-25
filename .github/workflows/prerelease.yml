@@ -14,7 +14,7 @@ on:
           - prerelease
       preid:
         description: 'Prerelease Identifier'
-        required: true
+        required: false
         default: 'alpha'
         type: choice
         options:
