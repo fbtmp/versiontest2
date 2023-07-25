@@ -1,0 +1,41 @@
+name: prerelease
+on:
+  workflow_dispatch:
+    inputs:
+      type:
+        description: 'Release Type'
+        required: true
+        default: 'prerelease'
+        type: choice
+        options:
+          - premajor
+          - preminor
+          - prepatch
+          - prerelease
+      preid:
+        description: 'Prerelease Identifier'
+        required: true
+        default: 'alpha'
+        type: choice
+        options:
+          - alpha
+          - beta
+          - rc
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Set Git user
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - run: npm version ${{ github.event.inputs.type }} --preid ${{ github.event.inputs.preid }}
+      - run: npm publish --tag next
+      - run: git push --follow-tags
