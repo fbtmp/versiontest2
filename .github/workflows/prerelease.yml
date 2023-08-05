@@ -15,7 +15,7 @@ on:
       preid:
         description: 'Prerelease Identifier'
         required: false
-        default: 'alpha'
+        default: ''
         type: choice
         options:
           - ''
@@ -23,7 +23,7 @@ on:
           - beta
           - rc
 jobs:
-  version:
+  prerelease:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -38,5 +38,14 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - run: npm version ${{ github.event.inputs.type }} --preid ${{ github.event.inputs.preid }}
-      - run: npm publish --tag next
       - run: git push --follow-tags
+      - run: echo "VERSION=$(npm pkg get version --workspaces=false | tr -d \")" >> $GITHUB_ENV
+      - name: Create Release Notes
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.request(`POST /repos/${{ github.repository }}/releases`, {
+              name: "${{ env.VERSION }}",
+              prerelease: true,
+              tag_name: "v${{ env.VERSION }}"
+            });
