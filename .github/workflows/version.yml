@@ -29,3 +29,5 @@ jobs:
       - run: git push --follow-tags
       - run: echo "VERSION=$(npm pkg get version --workspaces=false | tr -d \")" >> $GITHUB_ENV
       - run: gh release create v${{ env.VERSION }} -d --generate-notes -t ${{ env.VERSION }}
+        env:
+          GH_TOKEN: ${{ github.token }}
