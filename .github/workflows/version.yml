@@ -27,7 +27,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
       - run: npm version ${{ github.event.inputs.type }}
       - run: git push --follow-tags
-      - run: echo "VERSION=$(npm pkg get version --workspaces=false | xargs")" >> $GITHUB_ENV
+      - run: echo "VERSION=$(npm pkg get version --workspaces=false | xargs)" >> $GITHUB_ENV
       - run: gh release create v${{ env.VERSION }} -d --generate-notes -t ${{ env.VERSION }}
         env:
           GH_TOKEN: ${{ github.token }}
