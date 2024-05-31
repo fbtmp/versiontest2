@@ -28,6 +28,7 @@ jobs:
       - run: npm version ${{ github.event.inputs.type }}
       - run: git push --follow-tags
       - run: echo "VERSION=$(npm pkg get version --workspaces=false | xargs)" >> $GITHUB_ENV
+      - run: echo "major ${VERSION%%.*}"
       - run: gh release create v$VERSION -d --generate-notes -t $VERSION
         env:
           GH_TOKEN: ${{ github.token }}
