@@ -1,6 +1,6 @@
 {
   "name": "@fbtmp/versiontest2",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "main": "index.js",
   "repository": "https://github.com/fbtmp/versiontest2.git",
   "author": "Frieder Bluemle <frieder.bluemle@gmail.com>",
