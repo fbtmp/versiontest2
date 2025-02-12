@@ -2,7 +2,10 @@
   "name": "@fbtmp/versiontest2",
   "version": "2.0.0-rc.0",
   "main": "index.js",
-  "repository": "https://github.com/fbtmp/versiontest2.git",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fbtmp/versiontest2.git"
+  },
   "author": "Frieder Bluemle <frieder.bluemle@gmail.com>",
   "license": "MIT"
 }
