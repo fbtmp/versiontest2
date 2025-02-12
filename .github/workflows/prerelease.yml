@@ -25,20 +25,24 @@ on:
 jobs:
   prerelease:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Set Git user
-        run: |
+      - run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-      - run: npm version ${{ github.event.inputs.type }} --preid ${{ github.event.inputs.preid }}
+      - run: |
+          if [ -z "${{ github.event.inputs.preid }}" ]; then
+            npm version ${{ github.event.inputs.type }}
+          else
+            npm version ${{ github.event.inputs.type }} --preid ${{ github.event.inputs.preid }}
+          fi
       - run: git push --follow-tags
-      - run: echo "VERSION=$(npm pkg get version --workspaces=false | tr -d \")" >> $GITHUB_ENV
-      - run: gh release create v${{ env.VERSION }} -d --generate-notes -t ${{ env.VERSION }}
+      - run: echo "VERSION=$(npm pkg get version --workspaces=false | xargs)" >> $GITHUB_ENV
+      - run: gh release create v${VERSION} -d --generate-notes -t ${VERSION}
         env:
           GH_TOKEN: ${{ github.token }}

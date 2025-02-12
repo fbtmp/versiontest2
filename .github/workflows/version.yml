@@ -30,13 +30,13 @@ jobs:
       - name: Set variables
         run: |
           echo "VERSION=$(npm pkg get version --workspaces=false | xargs)" >> $GITHUB_ENV
-          echo "LAST_MINOR=$((npm --silent info @fbtmp/versiontest2 version || echo '0.0.0') | cut -d '.' -f 2)" >> $GITHUB_ENV
+          echo "LAST_MINOR=$((npm --silent info . version || echo '0.0.0') | cut -d. -f2)" >> $GITHUB_ENV
           echo "major ${VERSION%%.*}"
       - if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         run: |
           echo "on default branch"
-          git checkout -b v0.$((LAST_MINOR+1))
-          git push -u origin v0.$((LAST_MINOR+1))
+          git checkout -b release-0.$((LAST_MINOR+1))
+          git push -u origin release-0.$((LAST_MINOR+1))
       - if: startsWith(env.VERSION, '1.')
         run: echo "major starts with 1."
       - if: startsWith(env.VERSION, '0.')
