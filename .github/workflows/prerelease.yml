@@ -22,6 +22,8 @@ on:
           - alpha
           - beta
           - rc
+permissions:
+  contents: write
 jobs:
   prerelease:
     runs-on: ubuntu-latest
