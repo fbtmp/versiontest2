@@ -37,6 +37,6 @@ jobs:
           echo "on default branch"
       - if: startsWith(env.VERSION, '1.')
         run: echo "major starts with 1."
-      - run: gh release create v$VERSION -d --generate-notes -t $VERSION
+      - run: gh release create v${VERSION} -d --generate-notes -t ${VERSION}
         env:
           GH_TOKEN: ${{ github.token }}
